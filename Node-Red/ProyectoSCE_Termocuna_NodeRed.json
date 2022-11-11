@@ -1,0 +1,896 @@
+[
+    {
+        "id": "7ed0ae3cb6237bfb",
+        "type": "tab",
+        "label": "PROYECTO SCE",
+        "disabled": false,
+        "info": "",
+        "env": []
+    },
+    {
+        "id": "5a3cd435d94cc5d2",
+        "type": "telegram receiver",
+        "z": "7ed0ae3cb6237bfb",
+        "name": "",
+        "bot": "ed32cb9859a488db",
+        "saveDataDir": "",
+        "filterCommands": false,
+        "x": 170,
+        "y": 60,
+        "wires": [
+            [
+                "a5e38dfdbc18d723",
+                "9d488b01b7832e47"
+            ],
+            []
+        ]
+    },
+    {
+        "id": "cdb074e3cc1737cd",
+        "type": "function",
+        "z": "7ed0ae3cb6237bfb",
+        "name": "",
+        "func": "var temp = flow.get(\"SetPoint\")\nmsg.payload=temp\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 580,
+        "y": 60,
+        "wires": [
+            [
+                "18e0416f185b6a98",
+                "6fe04f13adaa277a"
+            ]
+        ]
+    },
+    {
+        "id": "a5e38dfdbc18d723",
+        "type": "change",
+        "z": "7ed0ae3cb6237bfb",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "SetPoint",
+                "pt": "flow",
+                "to": "payload.content",
+                "tot": "msg"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 390,
+        "y": 60,
+        "wires": [
+            [
+                "cdb074e3cc1737cd"
+            ]
+        ]
+    },
+    {
+        "id": "8a3234a11e811e31",
+        "type": "serial out",
+        "z": "7ed0ae3cb6237bfb",
+        "name": "",
+        "serial": "1bc89ec3efa2f7d7",
+        "x": 1170,
+        "y": 60,
+        "wires": []
+    },
+    {
+        "id": "18e0416f185b6a98",
+        "type": "debug",
+        "z": "7ed0ae3cb6237bfb",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 590,
+        "y": 120,
+        "wires": []
+    },
+    {
+        "id": "fa40c8d6137458d0",
+        "type": "mqtt in",
+        "z": "7ed0ae3cb6237bfb",
+        "name": "",
+        "topic": "ProyectoSCE/TermoCuna/Temp",
+        "qos": "0",
+        "datatype": "auto",
+        "broker": "0a04e91a95aab8a3",
+        "nl": false,
+        "rap": false,
+        "inputs": 0,
+        "x": 210,
+        "y": 360,
+        "wires": [
+            [
+                "767790a424a2311d",
+                "5443315ef9231550"
+            ]
+        ]
+    },
+    {
+        "id": "27971636489ff67f",
+        "type": "change",
+        "z": "7ed0ae3cb6237bfb",
+        "name": "toNumber",
+        "rules": [],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 580,
+        "y": 360,
+        "wires": [
+            [
+                "42acd9cb536a0cf4"
+            ]
+        ]
+    },
+    {
+        "id": "767790a424a2311d",
+        "type": "split",
+        "z": "7ed0ae3cb6237bfb",
+        "name": "",
+        "splt": ",",
+        "spltType": "str",
+        "arraySplt": 1,
+        "arraySpltType": "len",
+        "stream": false,
+        "addname": "",
+        "x": 430,
+        "y": 360,
+        "wires": [
+            [
+                "27971636489ff67f"
+            ]
+        ]
+    },
+    {
+        "id": "42acd9cb536a0cf4",
+        "type": "switch",
+        "z": "7ed0ae3cb6237bfb",
+        "name": "route",
+        "property": "parts.index",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "eq",
+                "v": "0",
+                "vt": "num"
+            },
+            {
+                "t": "eq",
+                "v": "1",
+                "vt": "str"
+            },
+            {
+                "t": "eq",
+                "v": "2",
+                "vt": "str"
+            },
+            {
+                "t": "eq",
+                "v": "3",
+                "vt": "str"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 4,
+        "x": 730,
+        "y": 360,
+        "wires": [
+            [
+                "c499762a190ba9ca",
+                "cbb91631043ca1e9"
+            ],
+            [
+                "646a7a12553c6a19",
+                "ded8f1e19cdbdb9b"
+            ],
+            [
+                "ae69f21acdd45551",
+                "de95e796f8a1e336"
+            ],
+            [
+                "3573e442e73010dd",
+                "3cbc9d2b161dd130"
+            ]
+        ]
+    },
+    {
+        "id": "c499762a190ba9ca",
+        "type": "ui_gauge",
+        "z": "7ed0ae3cb6237bfb",
+        "name": "",
+        "group": "dfc653fe.ed6cf",
+        "order": 1,
+        "width": 6,
+        "height": 5,
+        "gtype": "gage",
+        "title": "Temperatura 1",
+        "label": "°C",
+        "format": "{{value}}",
+        "min": "24",
+        "max": "50",
+        "colors": [
+            "#00b500",
+            "#e6e600",
+            "#ca3838"
+        ],
+        "seg1": "",
+        "seg2": "",
+        "className": "",
+        "x": 1000,
+        "y": 260,
+        "wires": []
+    },
+    {
+        "id": "646a7a12553c6a19",
+        "type": "ui_gauge",
+        "z": "7ed0ae3cb6237bfb",
+        "name": "",
+        "group": "dfc653fe.ed6cf",
+        "order": 10,
+        "width": 6,
+        "height": 5,
+        "gtype": "gage",
+        "title": "Temperatura 2",
+        "label": "°C",
+        "format": "{{value}}",
+        "min": "24",
+        "max": "50",
+        "colors": [
+            "#00b500",
+            "#e6e600",
+            "#ca3838"
+        ],
+        "seg1": "",
+        "seg2": "",
+        "className": "",
+        "x": 1000,
+        "y": 340,
+        "wires": []
+    },
+    {
+        "id": "5443315ef9231550",
+        "type": "debug",
+        "z": "7ed0ae3cb6237bfb",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 510,
+        "y": 440,
+        "wires": []
+    },
+    {
+        "id": "ae69f21acdd45551",
+        "type": "ui_gauge",
+        "z": "7ed0ae3cb6237bfb",
+        "name": "",
+        "group": "dfc653fe.ed6cf",
+        "order": 10,
+        "width": 6,
+        "height": 5,
+        "gtype": "gage",
+        "title": "Temperatura Promedio",
+        "label": "°C",
+        "format": "{{value}}",
+        "min": "24",
+        "max": "50",
+        "colors": [
+            "#00b500",
+            "#e6e600",
+            "#ca3838"
+        ],
+        "seg1": "",
+        "seg2": "",
+        "className": "",
+        "x": 1020,
+        "y": 420,
+        "wires": []
+    },
+    {
+        "id": "cbb91631043ca1e9",
+        "type": "change",
+        "z": "7ed0ae3cb6237bfb",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "temp1",
+                "pt": "flow",
+                "to": "payload",
+                "tot": "msg"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 1000,
+        "y": 300,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "024dac63d029a41d",
+        "type": "telegram command",
+        "z": "7ed0ae3cb6237bfb",
+        "name": "",
+        "command": "Temp1",
+        "description": "",
+        "registercommand": false,
+        "language": "",
+        "scope": "default",
+        "bot": "ed32cb9859a488db",
+        "strict": false,
+        "hasresponse": true,
+        "useregex": false,
+        "removeregexcommand": false,
+        "outputs": 2,
+        "x": 170,
+        "y": 520,
+        "wires": [
+            [
+                "2890e2bda63d4856"
+            ],
+            []
+        ]
+    },
+    {
+        "id": "e8d48c4494091e42",
+        "type": "telegram command",
+        "z": "7ed0ae3cb6237bfb",
+        "name": "",
+        "command": "Temp2",
+        "description": "",
+        "registercommand": false,
+        "language": "",
+        "scope": "default",
+        "bot": "ed32cb9859a488db",
+        "strict": false,
+        "hasresponse": true,
+        "useregex": false,
+        "removeregexcommand": false,
+        "outputs": 2,
+        "x": 170,
+        "y": 580,
+        "wires": [
+            [
+                "98acb62ff479ab56"
+            ],
+            []
+        ]
+    },
+    {
+        "id": "2890e2bda63d4856",
+        "type": "function",
+        "z": "7ed0ae3cb6237bfb",
+        "name": "",
+        "func": "var temp = flow.get(\"temp1\")\nmsg.payload={\n    \"chatId\": -827765194,\n    \"type\": \"message\",\n    \"content\": \"Temperatura 1=\" + temp + \"°C\"\n}\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 390,
+        "y": 520,
+        "wires": [
+            [
+                "c66707eb7d8541fa"
+            ]
+        ]
+    },
+    {
+        "id": "98acb62ff479ab56",
+        "type": "function",
+        "z": "7ed0ae3cb6237bfb",
+        "name": "",
+        "func": "var temp = flow.get(\"temp2\")\nmsg.payload={\n    \"chatId\": -827765194,\n    \"type\": \"message\",\n    \"content\": \"Temperatura 2=\" + temp + \"°C\"\n}\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 400,
+        "y": 580,
+        "wires": [
+            [
+                "319b508351fa910f"
+            ]
+        ]
+    },
+    {
+        "id": "c66707eb7d8541fa",
+        "type": "telegram sender",
+        "z": "7ed0ae3cb6237bfb",
+        "name": "",
+        "bot": "ed32cb9859a488db",
+        "haserroroutput": false,
+        "outputs": 1,
+        "x": 610,
+        "y": 520,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "319b508351fa910f",
+        "type": "telegram sender",
+        "z": "7ed0ae3cb6237bfb",
+        "name": "",
+        "bot": "ed32cb9859a488db",
+        "haserroroutput": false,
+        "outputs": 1,
+        "x": 610,
+        "y": 580,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "33f8f94f13486e91",
+        "type": "telegram command",
+        "z": "7ed0ae3cb6237bfb",
+        "name": "",
+        "command": "TempProm",
+        "description": "",
+        "registercommand": false,
+        "language": "",
+        "scope": "default",
+        "bot": "ed32cb9859a488db",
+        "strict": false,
+        "hasresponse": true,
+        "useregex": false,
+        "removeregexcommand": false,
+        "outputs": 2,
+        "x": 180,
+        "y": 640,
+        "wires": [
+            [
+                "7780078733f880ba"
+            ],
+            []
+        ]
+    },
+    {
+        "id": "7780078733f880ba",
+        "type": "function",
+        "z": "7ed0ae3cb6237bfb",
+        "name": "",
+        "func": "var temp = flow.get(\"tempProm\")\nmsg.payload={\n    \"chatId\": -827765194,\n    \"type\": \"message\",\n    \"content\": \"Temperatura Prom=\" + temp + \"°C\"\n}\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 400,
+        "y": 640,
+        "wires": [
+            [
+                "2f2db77a1474a2e2"
+            ]
+        ]
+    },
+    {
+        "id": "2f2db77a1474a2e2",
+        "type": "telegram sender",
+        "z": "7ed0ae3cb6237bfb",
+        "name": "",
+        "bot": "ed32cb9859a488db",
+        "haserroroutput": false,
+        "outputs": 1,
+        "x": 610,
+        "y": 640,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "ded8f1e19cdbdb9b",
+        "type": "change",
+        "z": "7ed0ae3cb6237bfb",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "temp2",
+                "pt": "flow",
+                "to": "payload",
+                "tot": "msg"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 1000,
+        "y": 380,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "de95e796f8a1e336",
+        "type": "change",
+        "z": "7ed0ae3cb6237bfb",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "tempProm",
+                "pt": "flow",
+                "to": "payload",
+                "tot": "msg"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 1010,
+        "y": 460,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "6662462a632637ab",
+        "type": "mqtt out",
+        "z": "7ed0ae3cb6237bfb",
+        "name": "",
+        "topic": "ProyectoSCE/TermoCuna/SetPoint",
+        "qos": "",
+        "retain": "",
+        "respTopic": "",
+        "contentType": "",
+        "userProps": "",
+        "correl": "",
+        "expiry": "",
+        "broker": "0a04e91a95aab8a3",
+        "x": 1180,
+        "y": 140,
+        "wires": []
+    },
+    {
+        "id": "6fe04f13adaa277a",
+        "type": "switch",
+        "z": "7ed0ae3cb6237bfb",
+        "name": "",
+        "property": "payload",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "cont",
+                "v": "SetPoint",
+                "vt": "str"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 1,
+        "x": 750,
+        "y": 60,
+        "wires": [
+            [
+                "25a8f724962bc6f7",
+                "df78866ab384fd3b"
+            ]
+        ]
+    },
+    {
+        "id": "25a8f724962bc6f7",
+        "type": "split",
+        "z": "7ed0ae3cb6237bfb",
+        "name": "",
+        "splt": ",",
+        "spltType": "str",
+        "arraySplt": 1,
+        "arraySpltType": "len",
+        "stream": false,
+        "addname": "",
+        "x": 890,
+        "y": 60,
+        "wires": [
+            [
+                "bbcc1a0f75053093"
+            ]
+        ]
+    },
+    {
+        "id": "bbcc1a0f75053093",
+        "type": "switch",
+        "z": "7ed0ae3cb6237bfb",
+        "name": "route",
+        "property": "parts.index",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "eq",
+                "v": "1",
+                "vt": "num"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 1,
+        "x": 1030,
+        "y": 60,
+        "wires": [
+            [
+                "8a3234a11e811e31",
+                "6662462a632637ab"
+            ]
+        ]
+    },
+    {
+        "id": "9d488b01b7832e47",
+        "type": "debug",
+        "z": "7ed0ae3cb6237bfb",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 370,
+        "y": 120,
+        "wires": []
+    },
+    {
+        "id": "3573e442e73010dd",
+        "type": "ui_gauge",
+        "z": "7ed0ae3cb6237bfb",
+        "name": "",
+        "group": "dfc653fe.ed6cf",
+        "order": 10,
+        "width": 6,
+        "height": 5,
+        "gtype": "gage",
+        "title": "SetPoint",
+        "label": "°C",
+        "format": "{{value}}",
+        "min": "24",
+        "max": "50",
+        "colors": [
+            "#00b500",
+            "#e6e600",
+            "#ca3838"
+        ],
+        "seg1": "",
+        "seg2": "",
+        "className": "",
+        "x": 980,
+        "y": 500,
+        "wires": []
+    },
+    {
+        "id": "6333284418302fc7",
+        "type": "telegram command",
+        "z": "7ed0ae3cb6237bfb",
+        "name": "",
+        "command": "Conf",
+        "description": "",
+        "registercommand": false,
+        "language": "",
+        "scope": "default",
+        "bot": "ed32cb9859a488db",
+        "strict": false,
+        "hasresponse": true,
+        "useregex": false,
+        "removeregexcommand": false,
+        "outputs": 2,
+        "x": 170,
+        "y": 700,
+        "wires": [
+            [
+                "f02d99e96bee0be4"
+            ],
+            []
+        ]
+    },
+    {
+        "id": "f02d99e96bee0be4",
+        "type": "function",
+        "z": "7ed0ae3cb6237bfb",
+        "name": "",
+        "func": "var temp = flow.get(\"conf\")\nmsg.payload={\n    \"chatId\": -827765194,\n    \"type\": \"message\",\n    \"content\": \"La TermoCuna se encuentra con un SetPoint (Temperatura) de: \" + temp + \"°C\"\n}\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 400,
+        "y": 700,
+        "wires": [
+            [
+                "73d8a7a1bbfa4340"
+            ]
+        ]
+    },
+    {
+        "id": "73d8a7a1bbfa4340",
+        "type": "telegram sender",
+        "z": "7ed0ae3cb6237bfb",
+        "name": "",
+        "bot": "ed32cb9859a488db",
+        "haserroroutput": false,
+        "outputs": 1,
+        "x": 610,
+        "y": 700,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "3cbc9d2b161dd130",
+        "type": "change",
+        "z": "7ed0ae3cb6237bfb",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "conf",
+                "pt": "flow",
+                "to": "payload",
+                "tot": "msg"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 990,
+        "y": 540,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "df78866ab384fd3b",
+        "type": "function",
+        "z": "7ed0ae3cb6237bfb",
+        "name": "",
+        "func": "msg.payload={\n    \"chatId\": -827765194,\n    \"type\": \"message\",\n    \"content\": \"Se actualizo correctamente el SetPoint, consulte con el comando 'Conf' \"\n}\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 800,
+        "y": 120,
+        "wires": [
+            [
+                "e76ff8f53a7b67f3"
+            ]
+        ]
+    },
+    {
+        "id": "e76ff8f53a7b67f3",
+        "type": "telegram sender",
+        "z": "7ed0ae3cb6237bfb",
+        "name": "",
+        "bot": "ed32cb9859a488db",
+        "haserroroutput": false,
+        "outputs": 1,
+        "x": 830,
+        "y": 200,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "ed32cb9859a488db",
+        "type": "telegram bot",
+        "botname": "labtsc_bot",
+        "usernames": "",
+        "chatids": "",
+        "baseapiurl": "",
+        "updatemode": "polling",
+        "pollinterval": "300",
+        "usesocks": false,
+        "sockshost": "",
+        "socksport": "6667",
+        "socksusername": "anonymous",
+        "sockspassword": "",
+        "bothost": "",
+        "botpath": "",
+        "localbotport": "8443",
+        "publicbotport": "8443",
+        "privatekey": "",
+        "certificate": "",
+        "useselfsignedcertificate": false,
+        "sslterminated": false,
+        "verboselogging": false
+    },
+    {
+        "id": "1bc89ec3efa2f7d7",
+        "type": "serial-port",
+        "serialport": "COM8",
+        "serialbaud": "115200",
+        "databits": "8",
+        "parity": "none",
+        "stopbits": "1",
+        "waitfor": "",
+        "dtr": "none",
+        "rts": "none",
+        "cts": "none",
+        "dsr": "none",
+        "newline": "\\n",
+        "bin": "false",
+        "out": "char",
+        "addchar": "",
+        "responsetimeout": "10000"
+    },
+    {
+        "id": "0a04e91a95aab8a3",
+        "type": "mqtt-broker",
+        "name": "",
+        "broker": "test.mosquitto.org",
+        "port": "1883",
+        "clientid": "",
+        "autoConnect": true,
+        "usetls": false,
+        "protocolVersion": "4",
+        "keepalive": "60",
+        "cleansession": true,
+        "birthTopic": "",
+        "birthQos": "0",
+        "birthPayload": "",
+        "birthMsg": {},
+        "closeTopic": "",
+        "closeQos": "0",
+        "closePayload": "",
+        "closeMsg": {},
+        "willTopic": "",
+        "willQos": "0",
+        "willPayload": "",
+        "willMsg": {},
+        "sessionExpiry": ""
+    },
+    {
+        "id": "dfc653fe.ed6cf",
+        "type": "ui_group",
+        "name": "MQTT",
+        "tab": "444cb8a6d47dd350",
+        "order": 1,
+        "disp": true,
+        "width": "6",
+        "collapse": false,
+        "className": ""
+    },
+    {
+        "id": "444cb8a6d47dd350",
+        "type": "ui_tab",
+        "name": "MQTT",
+        "icon": "dashboard",
+        "disabled": false,
+        "hidden": false
+    }
+]
