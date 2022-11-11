@@ -28,8 +28,8 @@ float TemPromedio;
 
 
 // WiFi
-const char* ssid = "Diego";
-const char* password = "juandi30";
+const char* ssid = "sidd-wifi";
+const char* password = "password wifi";
 WiFiClient espClient;
 PubSubClient client(espClient);
 String msg;
