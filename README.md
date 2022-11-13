@@ -37,10 +37,12 @@ Se usó programar el sistema embebido (ESP32) para:
 - Registro y exportación de datos para el sistema en lazo abierto.
 
 ## Autores:
-Juan Orellana
-* github.com/juandi30
-Giovanny Romero
+Juan Orellana 
+* https://github.com/juandi30
+
+Giovanny Romero 
 * https://github.com/girovizu
-Axcel Espinoza
+
+Axcel Espinoza 
 * https://github.com/Axcel17
 
