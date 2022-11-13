@@ -25,8 +25,8 @@ Diseño de una planta de control y monitoreo de temperatura implementada en un c
 - Comunicación directa con el servidor MQTT para consultar las temperaturas actuales de la planta.
 
 ### Arduino IDE
-Se usó programar el sistema embebido (ESP32) para:
-- Establecer coenxión con servidor MQTT.
+Se usó para programar el sistema embebido (ESP32):
+- Establecer conexión con servidor MQTT para envío de datos.
 - Recibir el setpoint de temperatura enviado por Telegram mediante comunicación serial con Node-Red. 
 
 ### Telegram
